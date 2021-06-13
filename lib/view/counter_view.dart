@@ -1,34 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'counter_stream.dart';
+import '../bloc/counter_bloc.dart';
 
-class CounterView extends StatefulWidget {
-  const CounterView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _CounterViewState createState() => _CounterViewState();
-}
-
-class _CounterViewState extends State<CounterView> {
-  /// [1]
-  late CounterRxDart _counterRxDart;
-
-  @override
-  void initState() {
-    super.initState();
-
-    /// [2]
-    _counterRxDart = CounterRxDart();
-  }
+class CounterView extends StatelessWidget {
+  const CounterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // final _read = context.read<CounterBloc>();
+    final _read = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'RxDart Counter App',
+          'Flutter BLoC Counter App',
         ),
       ),
       body: Center(
@@ -39,20 +24,16 @@ class _CounterViewState extends State<CounterView> {
               'Sayaç Değeri:',
               style: Theme.of(context).textTheme.headline3,
             ),
-            StreamBuilder<int>(
 
-                /// [3]
-                stream: _counterRxDart.valueStreamCounter,
-
-                /// [4]
-                initialData: _counterRxDart.value,
-                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                  return Text(
-                    /// [5]: Sayacın değerini ekrana yaz
-                    '${snapshot.data}',
-                    style: Theme.of(context).textTheme.headline3,
-                  );
-                }),
+            /// [BlocBuilder], CounterBloc'un durumu her değiştiğinde
+            /// Text widgetini sararak state'i günceller.
+            BlocBuilder<CounterBloc, CounterState>(builder: (BuildContext context, CounterState state) {
+              return Text(
+                /// [5]: Sayacın değerini ekrana yaz
+                '${state.counter}',
+                style: Theme.of(context).textTheme.headline3,
+              );
+            }),
           ],
         ),
       ),
@@ -70,8 +51,8 @@ class _CounterViewState extends State<CounterView> {
             child: FloatingActionButton(
               heroTag: 'incrementTag',
 
-              /// Arttırma metodunu [2-A] çalıştır
-              onPressed: _counterRxDart.incrementCounter,
+              /// Arttırma Event'ini tetikle
+              onPressed: () => _read.add(IncrementEvent()),
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -89,7 +70,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'resetTag',
 
               /// Sıfırlama metodunu [2-B] çalıştır
-              onPressed: _counterRxDart.resetCounter,
+              onPressed: () => _read.add(ResetEvent()),
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -107,7 +88,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'decrementTag',
 
               /// Azaltma metodunu [2-C] çalıştır
-              onPressed: _counterRxDart.decrementCounter,
+              onPressed: () => _read.add(DecrementEvent()),
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
@@ -117,12 +98,5 @@ class _CounterViewState extends State<CounterView> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    /// [counterRxDart] ile işimiz bitince kapatılsın
-    _counterRxDart.dispose();
-    super.dispose();
   }
 }

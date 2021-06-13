@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'counter_view.dart';
+import 'view/counter_page.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: const CounterView(),
+      home: const CounterPage(),
     );
   }
 }
