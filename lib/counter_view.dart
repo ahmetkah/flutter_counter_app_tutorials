@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'counter.dart';
+import 'counter_stream.dart';
 
 class CounterView extends StatefulWidget {
   const CounterView({
@@ -12,15 +12,15 @@ class CounterView extends StatefulWidget {
 }
 
 class _CounterViewState extends State<CounterView> {
-  /// []
-  late Counter counter;
+  /// [1]
+  late CounterStream _counterStream;
 
   @override
   void initState() {
     super.initState();
 
-    /// []
-    counter = Counter();
+    /// [2]
+    _counterStream = CounterStream(0);
   }
 
   @override
@@ -28,7 +28,7 @@ class _CounterViewState extends State<CounterView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Default Counter App',
+          'Stream Counter App',
         ),
       ),
       body: Center(
@@ -39,16 +39,25 @@ class _CounterViewState extends State<CounterView> {
               'Sayaç Değeri:',
               style: Theme.of(context).textTheme.headline3,
             ),
-            Text(
-              /// [3]: Sayacın değerini ekrana yaz
-              '${counter.value}',
-              style: Theme.of(context).textTheme.headline3,
-            ),
+            StreamBuilder<int>(
+
+                /// [3]
+                stream: _counterStream.streamCounter,
+
+                /// [4]
+                initialData: _counterStream.value,
+                builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                  return Text(
+                    /// [5]: Sayacın değerini ekrana yaz
+                    '${snapshot.data}',
+                    style: Theme.of(context).textTheme.headline3,
+                  );
+                }),
           ],
         ),
       ),
 
-      /// [4] Metotları Tetikleyecek/Çalıştıracak FAB Düğmelerini Oluştur
+      /// [6] Metotları Tetikleyecek/Çalıştıracak FAB Düğmelerini Oluştur
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -57,16 +66,12 @@ class _CounterViewState extends State<CounterView> {
               bottom: 10,
             ),
 
-            /// [4-A]: Arttır FAB Düğmesi
+            /// [6-A]: Arttır FAB Düğmesi
             child: FloatingActionButton(
               heroTag: 'incrementTag',
 
               /// Arttırma metodunu [2-A] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.incrementCounter(),
-                );
-              },
+              onPressed: _counterStream.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -78,17 +83,13 @@ class _CounterViewState extends State<CounterView> {
               bottom: 10,
             ),
 
-            /// [4-B]: Sıfırla FAB Düğmesi
+            /// [6-B]: Sıfırla FAB Düğmesi
             child: FloatingActionButton(
               backgroundColor: Colors.white,
               heroTag: 'resetTag',
 
               /// Sıfırlama metodunu [2-B] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.resetCounter(),
-                );
-              },
+              onPressed: _counterStream.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -97,7 +98,7 @@ class _CounterViewState extends State<CounterView> {
             ),
           ),
 
-          /// [4-C]:Azalt FAB Düğmesi
+          /// [6-C]:Azalt FAB Düğmesi
           Padding(
             padding: EdgeInsets.only(
               bottom: 10,
@@ -106,11 +107,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'decrementTag',
 
               /// Azaltma metodunu [2-C] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.decrementCounter(),
-                );
-              },
+              onPressed: _counterStream.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
@@ -120,5 +117,12 @@ class _CounterViewState extends State<CounterView> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    /// [7]
+    _counterStream.dispose();
+    super.dispose();
   }
 }
