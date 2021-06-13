@@ -1,24 +1,22 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
-class CounterStream {
+class CounterRxDart {
   /// [1] Sayaçta değişimini izleyeceğimiz değişkeni tanımla
-  int _value;
+  int _value = 0;
   int get value => _value;
 
-  /// [2] StreamController tanımla
-  StreamController<int>? _streamController;
+  /// [2] BehaviorSubject tanımla
+  BehaviorSubject<int>? _behaviorSubject;
 
-  /// [3] Kurucu (Constructor) metot içinde başlangıç değerini al
-  CounterStream(this._value) {
-    /// Oluşturulan StreamController'ın [stream]'ini (akışını) dinlemeye başla
-    _streamController = StreamController<int>.broadcast();
+  /// [3] Kurucu (Constructor) metot
+  CounterRxDart() {
+    /// Oluşturulan BehaviorSubject'ın [stream]'ini (akışını) dinlemeye başla
+    _behaviorSubject = BehaviorSubject<int>.seeded(_value);
   }
 
-  /// [4] StreamController'ın [stream]'ine ulaş
-  /// Veri akışının olduğu yer
-  Stream<int>? get streamCounter => _streamController?.stream;
+  /// [4] Observable: Verilerin yayınlandığı yer
+  ValueStream<int>? get valueStreamCounter => _behaviorSubject?.stream;
 
   /// [2] Kullanacağımız Metotları Oluştur
   /// [2-A]: Arttırma
@@ -27,7 +25,7 @@ class CounterStream {
     _value++;
 
     /// Veri akışına değişen veriyi ekle
-    _streamController?.sink.add(_value);
+    _behaviorSubject?.sink.add(_value);
     debugPrint('Arttırma metodu çalıştı');
   }
 
@@ -38,7 +36,7 @@ class CounterStream {
 
     /// Sayaca [0] değerini ata
     _value = 0;
-    _streamController?.sink.add(_value);
+    _behaviorSubject?.sink.add(_value);
     debugPrint('Sıfırla metodu çalıştı');
   }
 
@@ -46,12 +44,12 @@ class CounterStream {
   void decrementCounter() {
     /// Sayacı bir [AZALT]
     _value--;
-    _streamController?.sink.add(_value);
+    _behaviorSubject?.sink.add(_value);
     debugPrint('Azaltma metodu çalıştı');
   }
 
-  /// [3] StreamController ile işimiz bitince kapatılsın
+  /// [3] BehaviorSubject ile işimiz bitince kapatılsın
   void dispose() {
-    _streamController?.close();
+    _behaviorSubject?.close();
   }
 }

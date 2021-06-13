@@ -13,14 +13,14 @@ class CounterView extends StatefulWidget {
 
 class _CounterViewState extends State<CounterView> {
   /// [1]
-  late CounterStream _counterStream;
+  late CounterRxDart _counterRxDart;
 
   @override
   void initState() {
     super.initState();
 
     /// [2]
-    _counterStream = CounterStream(0);
+    _counterRxDart = CounterRxDart();
   }
 
   @override
@@ -28,7 +28,7 @@ class _CounterViewState extends State<CounterView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Stream Counter App',
+          'RxDart Counter App',
         ),
       ),
       body: Center(
@@ -42,10 +42,10 @@ class _CounterViewState extends State<CounterView> {
             StreamBuilder<int>(
 
                 /// [3]
-                stream: _counterStream.streamCounter,
+                stream: _counterRxDart.valueStreamCounter,
 
                 /// [4]
-                initialData: _counterStream.value,
+                initialData: _counterRxDart.value,
                 builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                   return Text(
                     /// [5]: Sayacın değerini ekrana yaz
@@ -71,7 +71,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'incrementTag',
 
               /// Arttırma metodunu [2-A] çalıştır
-              onPressed: _counterStream.incrementCounter,
+              onPressed: _counterRxDart.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -89,7 +89,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'resetTag',
 
               /// Sıfırlama metodunu [2-B] çalıştır
-              onPressed: _counterStream.resetCounter,
+              onPressed: _counterRxDart.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -107,7 +107,7 @@ class _CounterViewState extends State<CounterView> {
               heroTag: 'decrementTag',
 
               /// Azaltma metodunu [2-C] çalıştır
-              onPressed: _counterStream.decrementCounter,
+              onPressed: _counterRxDart.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
@@ -121,8 +121,8 @@ class _CounterViewState extends State<CounterView> {
 
   @override
   void dispose() {
-    /// [7]
-    _counterStream.dispose();
+    /// [counterRxDart] ile işimiz bitince kapatılsın
+    _counterRxDart.dispose();
     super.dispose();
   }
 }
