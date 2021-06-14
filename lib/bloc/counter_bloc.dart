@@ -1,4 +1,4 @@
-/// [3. Adım]
+/// [3]
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -17,10 +17,10 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       /// state değerini 1 arttır
       yield CounterState(counter: state.counter + 1);
     } else if (event is ResetEvent) {
-      // state değerini sıfırla
+      /// state değerini sıfırla
       yield CounterState(counter: 0);
     } else if (event is DecrementEvent) {
-      // state değerini 1 azalt
+      /// state değerini 1 azalt
       yield CounterState(counter: state.counter - 1);
     }
   }

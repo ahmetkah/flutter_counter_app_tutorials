@@ -27,13 +27,15 @@ class CounterView extends StatelessWidget {
 
             /// [BlocBuilder], CounterBloc'un durumu her değiştiğinde
             /// Text widgetini sararak state'i günceller.
-            BlocBuilder<CounterBloc, CounterState>(builder: (BuildContext context, CounterState state) {
-              return Text(
-                /// [5]: Sayacın değerini ekrana yaz
-                '${state.counter}',
-                style: Theme.of(context).textTheme.headline3,
-              );
-            }),
+            BlocBuilder<CounterBloc, CounterState>(
+              builder: (BuildContext context, CounterState state) {
+                return Text(
+                  /// [5]: Sayacın değerini ekrana yaz
+                  '${state.counter}',
+                  style: Theme.of(context).textTheme.headline3,
+                );
+              },
+            ),
           ],
         ),
       ),

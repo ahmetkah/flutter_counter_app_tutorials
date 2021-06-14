@@ -11,7 +11,7 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Enjekte
+    ///
     return BlocProvider<CounterBloc>(
       create: (context) => CounterBloc(),
       child: CounterView(),
