@@ -1,4 +1,30 @@
-/// [3]
+/// [1. Adım]:
+import 'package:bloc/bloc.dart';
+
+/// Sınıfı Cubit'ten extends et.
+class CounterCubit extends Cubit<int> {
+  /// State için başlangıç değeri
+  /// super(state) => state(0)
+  CounterCubit() : super(0);
+
+  /// [1]: Arttır metodunun çalıştıktan sonra
+  /// [state] güncellenmesi için
+  /// [emit] metodunu kullan
+  void incrementCounter() => emit(state + 1);
+
+  /// [2]: Sıfırlama metodunun çalıştıktan sonra
+  /// [state] güncellenmesi için
+  /// [emit] metodunu kullan
+  void resetCounter() => emit(0);
+
+  /// [3]: Azalt metodunun çalıştıktan sonra
+  /// [state] güncellenmesi için
+  /// [emit] metodunu kullan
+  void decrementCounter() => emit(state - 1);
+}
+
+
+/*
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -25,3 +51,4 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     }
   }
 }
+*/

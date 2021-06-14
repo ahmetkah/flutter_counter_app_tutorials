@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/counter_bloc.dart';
+import '../cubit/counter_cubit.dart';
 
 class CounterView extends StatelessWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final _read = context.read<CounterBloc>();
-    final _read = BlocProvider.of<CounterBloc>(context);
+    // final _read = context.read<CounterCubit>();
+    final _read = BlocProvider.of<CounterCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Flutter BLoC Counter App',
+          'Flutter BLoC-Cubit | Counter App',
         ),
       ),
       body: Center(
@@ -25,13 +25,13 @@ class CounterView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline3,
             ),
 
-            /// [BlocBuilder], CounterBloc'un durumu her değiştiğinde
+            /// [BlocBuilder], CounterCubit'in durumu her değiştiğinde
             /// Text widgetini sararak state'i günceller.
-            BlocBuilder<CounterBloc, CounterState>(
-              builder: (BuildContext context, CounterState state) {
+            BlocBuilder<CounterCubit, int>(
+              builder: (BuildContext context, int state) {
                 return Text(
                   /// [5]: Sayacın değerini ekrana yaz
-                  '${state.counter}',
+                  '$state',
                   style: Theme.of(context).textTheme.headline3,
                 );
               },
@@ -54,7 +54,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'incrementTag',
 
               /// Arttırma Event'ini tetikle
-              onPressed: () => _read.add(IncrementEvent()),
+              onPressed: _read.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -72,7 +72,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'resetTag',
 
               /// Sıfırlama metodunu [2-B] çalıştır
-              onPressed: () => _read.add(ResetEvent()),
+              onPressed: _read.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -90,7 +90,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'decrementTag',
 
               /// Azaltma metodunu [2-C] çalıştır
-              onPressed: () => _read.add(DecrementEvent()),
+              onPressed: _read.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
