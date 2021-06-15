@@ -11,13 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
-  
-  # Bloc - State Management
-  bloc: ^7.0.0
-  # Flutter Bloc - State Management
-  flutter_bloc: ^7.0.1
-  # Equality Comparisons
-  equatable: ^2.0.2
 
 dev_dependencies:
   flutter_test:
