@@ -3,13 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/counter_bloc.dart';
 
+/// [3. Adım]: Presentation Katmanı
 class CounterView extends StatelessWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // final _read = context.read<CounterBloc>();
+    /// [3-A]: Değişimini dinleyeceğimiz Bloc nesnesine erişim için
+    /// Bu metot ile CounterBloc sınıfında yer alan state değerine erişebileceğiz
     final _read = BlocProvider.of<CounterBloc>(context);
+    // Erişim için 2. alternatif
+    // final _read = context.read<CounterBloc>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,12 +30,12 @@ class CounterView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline3,
             ),
 
-            /// [BlocBuilder], CounterBloc'un durumu her değiştiğinde
-            /// Text widgetini sararak state'i günceller.
+            /// [3-B]: [BlocBuilder] Text widgetini sararak [CounterBloc]'un
+            /// durumu her değiştiğinde state'i rebuild eder.
             BlocBuilder<CounterBloc, CounterState>(
               builder: (BuildContext context, CounterState state) {
                 return Text(
-                  /// [5]: Sayacın değerini ekrana yaz
+                  /// [3-B]: state'in içindeki sayacın counter değerini ekrana yaz
                   '${state.counter}',
                   style: Theme.of(context).textTheme.headline3,
                 );
@@ -40,7 +45,9 @@ class CounterView extends StatelessWidget {
         ),
       ),
 
-      /// [6] Metotları Tetikleyecek/Çalıştıracak FAB Düğmelerini Oluştur
+      /// [3-C]: CounterBloc yapımıza gönderilecek
+      /// (CounterState'i tetikleyecek) olan
+      /// Eventler için FAB Düğmelerini Oluşturma
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -49,11 +56,11 @@ class CounterView extends StatelessWidget {
               bottom: 10,
             ),
 
-            /// [6-A]: Arttır FAB Düğmesi
+            /// Arttır FAB Düğmesi
             child: FloatingActionButton(
               heroTag: 'incrementTag',
 
-              /// Arttırma Event'ini tetikle
+              /// [3-D]: Arttırma Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(IncrementEvent()),
               tooltip: 'Arttır',
               child: Icon(
@@ -66,12 +73,12 @@ class CounterView extends StatelessWidget {
               bottom: 10,
             ),
 
-            /// [6-B]: Sıfırla FAB Düğmesi
+            /// Sıfırla FAB Düğmesi
             child: FloatingActionButton(
               backgroundColor: Colors.white,
               heroTag: 'resetTag',
 
-              /// Sıfırlama metodunu [2-B] çalıştır
+              /// [3-E] Sıfırlama Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(ResetEvent()),
               tooltip: 'Sıfırla',
               child: Icon(
@@ -81,7 +88,7 @@ class CounterView extends StatelessWidget {
             ),
           ),
 
-          /// [6-C]:Azalt FAB Düğmesi
+          /// Azalt FAB Düğmesi
           Padding(
             padding: EdgeInsets.only(
               bottom: 10,
@@ -89,7 +96,7 @@ class CounterView extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: 'decrementTag',
 
-              /// Azaltma metodunu [2-C] çalıştır
+              /// [3-F] Azaltma Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(DecrementEvent()),
               tooltip: 'Azalt',
               child: Icon(

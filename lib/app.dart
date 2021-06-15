@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'view/counter_page.dart';
 
+/// [5. Adım]: App sınıfını oluştur
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 

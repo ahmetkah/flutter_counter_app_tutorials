@@ -1,4 +1,5 @@
-/// [1. Adım]
+/// [1]: BLoC Katmanı
+/// [1-A]: Event Oluşturma
 
 part of 'counter_bloc.dart';
 

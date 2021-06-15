@@ -1,4 +1,5 @@
-/// [2]
+/// [1]: BLoC Katmanı
+/// [1-B]: State Oluşturma
 
 part of 'counter_bloc.dart';
 
