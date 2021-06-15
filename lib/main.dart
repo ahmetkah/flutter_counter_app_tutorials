@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 import 'counter_observer.dart';
 
-Future<void> main() async {
+/// [6. Adım]: main metodunu çalıştırma
+void main() {
   /// Initialize CounterBlocObserver
   /// CounterObserver'ı Başlatma
   Bloc.observer = CounterObserver();
