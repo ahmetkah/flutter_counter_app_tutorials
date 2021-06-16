@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'counter_notifier.dart';
 
 class CounterView extends StatelessWidget {
-  const CounterView({Key? key}) : super(key: key);
+  const CounterView({Key? key, required this.counter}) : super(key: key);
+
+  /// [2]
+  final CounterNotifier counter;
 
   @override
   Widget build(BuildContext context) {
-    /// [1]
-    final _counter = CounterNotifier();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,12 +25,12 @@ class CounterView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline3,
             ),
 
-            /// [3-B]: [BlocBuilder] Text widgetini sararak [CounterCubit]'in
-            /// durumu her değiştiğinde state'i rebuild eder.
+            /// [3-A]: [ValueListenableBuilder Text widgetini sararak
+            /// [CounterNotifier]'in durumu her değiştiğinde value'yı rebuild eder.
             ValueListenableBuilder<int>(
-              /// [valueListenable] parametresine
-              /// [_counter] değişkenini dinlemesini istedik.
-              valueListenable: _counter,
+              /// [3-B]: [valueListenable] parametresine
+              /// [counter] değişkenini dinlemesini istedik.
+              valueListenable: counter,
               builder: (context, counter, widget) {
                 return Text(
                   /// Değişimi dinlenen değişkenin değerini ekrana yaz
@@ -42,7 +43,7 @@ class CounterView extends StatelessWidget {
         ),
       ),
 
-      /// FAB Düğmelerini Oluşturma
+      /// [4] FAB Düğmelerini Oluşturma
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -55,8 +56,8 @@ class CounterView extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: 'incrementTag',
 
-              /// [3-D]: Arttırma metodunu çalıştır
-              onPressed: _counter.incrementCounter,
+              /// [4-A]: Arttırma metodunu çalıştır
+              onPressed: counter.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -73,8 +74,8 @@ class CounterView extends StatelessWidget {
               backgroundColor: Colors.white,
               heroTag: 'resetTag',
 
-              /// [3-E]: Sıfırlama metodunu çalıştır
-              onPressed: _counter.resetCounter,
+              /// [4-B]: Sıfırlama metodunu çalıştır
+              onPressed: counter.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -91,8 +92,8 @@ class CounterView extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: 'decrementTag',
 
-              /// [3-F]: Azaltma metodunu çalıştır
-              onPressed: _counter.decrementCounter,
+              /// [4-C]: Azaltma metodunu çalıştır
+              onPressed: counter.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,

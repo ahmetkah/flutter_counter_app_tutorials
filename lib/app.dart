@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_counter_app_tutorials/counter_notifier.dart';
 
 import 'counter_view.dart';
 
@@ -12,7 +13,11 @@ class App extends StatelessWidget {
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: CounterView(),
+
+      /// [5]
+      home: CounterView(
+        counter: CounterNotifier(),
+      ),
     );
   }
 }
