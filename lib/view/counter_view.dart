@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-import 'counter_notifier.dart';
+import '../model/counter_model.dart';
 
 class CounterView extends StatelessWidget {
-  const CounterView({Key? key, required this.counter}) : super(key: key);
-
-  /// [2]
-  final CounterNotifier counter;
+  const CounterView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    /// Değişimini dinleyeceğimiz değişkene erişim için
+    /// [rebuildOnChange: true]: Rebuild için
+    final _watch = ScopedModel.of<CounterModel>(context, rebuildOnChange: true);
+
+    /// Metotlara erişim için
+    /// [rebuildOnChange: false]: Rebuild olmaması için
+    final _read = ScopedModel.of<CounterModel>(context, rebuildOnChange: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Value Notifier | Counter App',
+          'Scoped Model | Counter App',
         ),
       ),
       body: Center(
@@ -24,20 +30,10 @@ class CounterView extends StatelessWidget {
               'Sayaç Değeri:',
               style: Theme.of(context).textTheme.headline3,
             ),
-
-            /// [3-A]: [ValueListenableBuilder Text widgetini sararak
-            /// [CounterNotifier]'in durumu her değiştiğinde value'yı rebuild eder.
-            ValueListenableBuilder<int>(
-              /// [3-B]: [valueListenable] parametresine
-              /// [counter] değişkenini dinlemesini istedik.
-              valueListenable: counter,
-              builder: (context, counter, widget) {
-                return Text(
-                  /// Değişimi dinlenen değişkenin değerini ekrana yaz
-                  '$counter',
-                  style: Theme.of(context).textTheme.headline3,
-                );
-              },
+            Text(
+              /// Değişimi dinlenen değişkenin değerini ekrana yaz
+              '${_watch.counter}',
+              style: Theme.of(context).textTheme.headline3,
             ),
           ],
         ),
@@ -57,7 +53,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'incrementTag',
 
               /// [4-A]: Arttırma metodunu çalıştır
-              onPressed: counter.incrementCounter,
+              onPressed: _read.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -75,7 +71,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'resetTag',
 
               /// [4-B]: Sıfırlama metodunu çalıştır
-              onPressed: counter.resetCounter,
+              onPressed: _read.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -93,7 +89,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'decrementTag',
 
               /// [4-C]: Azaltma metodunu çalıştır
-              onPressed: counter.decrementCounter,
+              onPressed: _read.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
