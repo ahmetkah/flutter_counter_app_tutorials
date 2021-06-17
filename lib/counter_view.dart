@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'counter_stream.dart';
+import 'counter_rxdart.dart';
 
 class CounterView extends StatefulWidget {
   const CounterView({
