@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
 import 'app.dart';
-import 'model/counter_model.dart';
+import 'provider/counter_notifier.dart';
 
-/// [6. Adım]: ScopedModel’i Konumlandırın
+/// [6. Adım]: ChangeNotifierProvider’ı Konumlandırın
 void main() {
   runApp(
-    ScopedModel<CounterModel>(
-      model: CounterModel(),
+    ChangeNotifierProvider<CounterNotifier>(
+      create: (context) => CounterNotifier(),
       child: const App(),
     ),
   );

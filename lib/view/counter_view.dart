@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:provider/provider.dart';
 
-import '../model/counter_model.dart';
+import '../provider/counter_notifier.dart';
 
 class CounterView extends StatelessWidget {
   const CounterView({Key? key}) : super(key: key);
@@ -9,17 +9,23 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Değişimini dinleyeceğimiz değişkene erişim için
-    /// [rebuildOnChange: true]: Rebuild için
-    final _watch = ScopedModel.of<CounterModel>(context, rebuildOnChange: true);
+    /// [listen: true]: Rebuild için
+    final _watch = Provider.of<CounterNotifier>(context, listen: true);
+
+    /// 2. Alterantif
+    ///final _watch = context.watch<CounterNotifier>();
 
     /// Metotlara erişim için
-    /// [rebuildOnChange: false]: Rebuild olmaması için
-    final _read = ScopedModel.of<CounterModel>(context, rebuildOnChange: false);
+    /// [listen: false]: Rebuild olmaması için
+    final _read = Provider.of<CounterNotifier>(context, listen: false);
+
+    /// 2. Alterantif
+    ///final _read = context.read<CounterNotifier>();
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Scoped Model | Counter App',
+          'ChangeNotifierProvider | Counter App',
         ),
       ),
       body: Center(

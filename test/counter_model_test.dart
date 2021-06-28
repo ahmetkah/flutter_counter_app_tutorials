@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_counter_app_tutorials/model/counter_model.dart';
+import 'package:flutter_counter_app_tutorials/provider/counter_notifier.dart';
 
 void main() {
-  late CounterModel _counterModel;
+  late CounterNotifier _counterNotifier;
 
   setUp(() {
-    _counterModel = CounterModel();
+    _counterNotifier = CounterNotifier();
   });
 
   tearDown(() {
-    _counterModel;
+    _counterNotifier;
   });
 
   group(
@@ -22,7 +22,7 @@ void main() {
           /// [Actual]: Gerçekleşen
           /// - Kod tarafından üretilen değer
           /// - Test ettiğimiz değer
-          final _left = _counterModel.counter;
+          final _left = _counterNotifier.counter;
 
           /// [Matcher]: Eşleştirilecek
           /// - Eşit olmasını beklediğimiz değer
@@ -43,9 +43,9 @@ void main() {
         'Arttırma (incrementCounter): Sayaç değeri 1 artmalı.',
         () {
           /// Arttırma Metodunu çalıştır
-          _counterModel.incrementCounter();
+          _counterNotifier.incrementCounter();
 
-          final _left = _counterModel.counter;
+          final _left = _counterNotifier.counter;
 
           final _right = 1;
 
@@ -56,9 +56,9 @@ void main() {
         'Arttırma (decrementCounter): Sayaç değeri 1 azalmalı.',
         () {
           /// Azaltma Metodunu çalıştır
-          _counterModel.decrementCounter();
+          _counterNotifier.decrementCounter();
 
-          final _left = _counterModel.counter;
+          final _left = _counterNotifier.counter;
 
           final _right = -1;
 
@@ -70,12 +70,12 @@ void main() {
         'Arttırma ve Sıfırlama: Sayaç değeri sıfırlanmalıdır',
         () {
           /// 1. Metodu çalıştır
-          _counterModel.incrementCounter();
+          _counterNotifier.incrementCounter();
 
           /// 2. Metodu çalıştır
-          _counterModel.resetCounter();
+          _counterNotifier.resetCounter();
 
-          final _left = _counterModel.counter;
+          final _left = _counterNotifier.counter;
 
           final _right = 0;
 
@@ -87,18 +87,18 @@ void main() {
         'Arttırma, Sıfırlama, Azaltma ve Arttırma: Sayaç değeri 0 olmalıdır.',
         () {
           /// 1. Metodu çalıştır
-          _counterModel.incrementCounter();
+          _counterNotifier.incrementCounter();
 
           /// 2. Metodu çalıştır
-          _counterModel.resetCounter();
+          _counterNotifier.resetCounter();
 
           /// 3. Metodu çalıştır
-          _counterModel.decrementCounter();
+          _counterNotifier.decrementCounter();
 
           /// 4. Metodu çalıştır
-          _counterModel.incrementCounter();
+          _counterNotifier.incrementCounter();
 
-          final _left = _counterModel.counter;
+          final _left = _counterNotifier.counter;
 
           final _right = 0;
 

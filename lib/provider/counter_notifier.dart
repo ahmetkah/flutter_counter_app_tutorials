@@ -1,7 +1,7 @@
-import 'package:scoped_model/scoped_model.dart';
+import 'package:flutter/foundation.dart';
 
-/// Sınıfı [Model]'den kalıtım al.
-class CounterModel extends Model {
+/// Sınıfı [ChangeNotifier]'dan kalıtım al.
+class CounterNotifier extends ChangeNotifier {
   /// Değişimini dinleyeceğimiz değişkeni oluştur.
   /// ve başlangıç değeri olarak 0 ata.
   int _counter = 0;
