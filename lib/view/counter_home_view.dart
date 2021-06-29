@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'counter_change_view.dart';
 import 'counter_state_provider_view.dart';
+import 'counter_provider_listener_view.dart';
 import 'counter_state_view.dart';
 
 class CounterHomeView extends StatelessWidget {
@@ -51,6 +52,17 @@ class CounterHomeView extends StatelessWidget {
               },
               child: Text(
                 'Counter State Provider',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CounterProviderListenerView.route(),
+                );
+              },
+              child: Text(
+                'Counter Provider Listener',
               ),
             )
           ],
