@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../provider/counter_notifier.dart';
+import '../providers/providers.dart';
 
-class CounterView extends StatelessWidget {
+class CounterView extends ConsumerWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    /// Değişimini dinleyeceğimiz değişkene erişim için
-    /// [listen: true]: Rebuild için
-    final _watch = Provider.of<CounterNotifier>(context, listen: true);
+  Widget build(BuildContext context, ScopedReader watch) {
+    /// [Model sınıfı]: .. extends StateNotifier
+    /// [watch (provider)]: Model sınıfının durumunu izler
+    /// ve değiştiğinde UI rebuild edilir /yeniden oluşturulur.
+    final _watch = watch(counterProvider);
 
-    /// 2. Alterantif
-    ///final _watch = context.watch<CounterNotifier>();
-
-    /// Metotlara erişim için
-    /// [listen: false]: Rebuild olmaması için
-    final _read = Provider.of<CounterNotifier>(context, listen: false);
-
-    /// 2. Alterantif
-    ///final _read = context.read<CounterNotifier>();
+    /// [context.read<Model>.method()]: model sınıfındaki metotlara erişmek için
+    final _read = context.read(counterProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ChangeNotifierProvider | Counter App',
+          'StateNotifierProvider | Counter App',
         ),
       ),
       body: Center(
@@ -38,7 +32,7 @@ class CounterView extends StatelessWidget {
             ),
             Text(
               /// Değişimi dinlenen değişkenin değerini ekrana yaz
-              '${_watch.counter}',
+              '$_watch',
               style: Theme.of(context).textTheme.headline3,
             ),
           ],

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
-import 'provider/counter_notifier.dart';
 
-/// [6. Adım]: ChangeNotifierProvider’ı Konumlandırın
+/// [7. Adım]: App widget'ini ProviderScope ile sarmala (wrap with widget ...).
 void main() {
   runApp(
-    ChangeNotifierProvider<CounterNotifier>(
-      create: (context) => CounterNotifier(),
+    ProviderScope(
       child: const App(),
     ),
   );

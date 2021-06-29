@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const CounterView(),
+      home: CounterView(),
     );
   }
 }
