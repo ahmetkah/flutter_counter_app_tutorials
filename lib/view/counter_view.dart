@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
-import '../providers/providers.dart';
+import '../controllers/counter_controllers.dart';
 
-class CounterChangeView extends ConsumerWidget {
-  const CounterChangeView({Key? key}) : super(key: key);
-  static Route route() => MaterialPageRoute<void>(builder: (_) => CounterChangeView());
+class CounterView extends StatelessWidget {
+  const CounterView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    /// [Model sınıfı]: ChangeNotifier'dan kalıtım alan
-    /// [watch (provider)]: Model sınıfının durumunu izler
-    /// ve değiştiğinde UI rebuild edilir /yeniden oluşturulur.
-    final _watch = watch(counterChangeProvider);
-
-    /// [context.read<Model>.method()]: model sınıfındaki metotlara erişmek için
-    final _read = context.read(counterChangeProvider);
+  Widget build(BuildContext context) {
+    /// [1] metotlara erişmek için
+    final _controller = Get.put(CounterControllers());
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ChangeNotifierProvider | Counter App',
+          'GetX | Counter App',
         ),
       ),
       body: Center(
@@ -31,10 +25,12 @@ class CounterChangeView extends ConsumerWidget {
               'Sayaç Değeri:',
               style: Theme.of(context).textTheme.headline3,
             ),
-            Text(
-              /// Değişimi dinlenen değişkenin değerini ekrana yaz
-              '${_watch.counter}',
-              style: Theme.of(context).textTheme.headline3,
+            Obx(
+              () => Text(
+                /// Değişimi dinlenen değişkenin değerini ekrana yaz
+                '${_controller.counter}',
+                style: Theme.of(context).textTheme.headline3,
+              ),
             ),
           ],
         ),
@@ -54,7 +50,7 @@ class CounterChangeView extends ConsumerWidget {
               heroTag: 'incrementTag',
 
               /// [4-A]: Arttırma metodunu çalıştır
-              onPressed: _read.incrementCounter,
+              onPressed: _controller.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -72,7 +68,7 @@ class CounterChangeView extends ConsumerWidget {
               heroTag: 'resetTag',
 
               /// [4-B]: Sıfırlama metodunu çalıştır
-              onPressed: _read.resetCounter,
+              onPressed: _controller.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -90,7 +86,7 @@ class CounterChangeView extends ConsumerWidget {
               heroTag: 'decrementTag',
 
               /// [4-C]: Azaltma metodunu çalıştır
-              onPressed: _read.decrementCounter,
+              onPressed: _controller.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,

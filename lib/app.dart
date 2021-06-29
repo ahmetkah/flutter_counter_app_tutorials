@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'view/counter_home_view.dart';
+import 'view/counter_view.dart';
 
 /// [5. Adım]: App sınıfını oluştur
 class App extends StatelessWidget {
@@ -8,11 +9,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    /// GetMaterialApp ile sar
+    return GetMaterialApp(
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: CounterHomeView(),
+      theme: ThemeData.dark(),
+      home: const CounterView(),
     );
   }
 }
