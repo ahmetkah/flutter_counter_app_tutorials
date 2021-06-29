@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'view/counter_view.dart';
 
@@ -9,11 +8,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// GetMaterialApp ile sar
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: const CounterView(),
     );
   }
