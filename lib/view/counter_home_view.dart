@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'counter_change_view.dart';
+import 'counter_state_provider_view.dart';
 import 'counter_state_view.dart';
 
 class CounterHomeView extends StatelessWidget {
@@ -39,6 +40,17 @@ class CounterHomeView extends StatelessWidget {
               },
               child: Text(
                 'Counter Change Notifier',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CounterStateProviderView.route(),
+                );
+              },
+              child: Text(
+                'Counter State Provider',
               ),
             )
           ],

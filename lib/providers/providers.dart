@@ -14,3 +14,8 @@ final counterStateProvider = StateNotifierProvider<CounterStateNotifier, int>(
 final counterChangeProvider = ChangeNotifierProvider(
   (ref) => CounterChangeNotifier(),
 );
+
+///[3. Adım]: StateProvider için glabal bir değişken tanımla.
+final counterProvider = StateProvider<int>(
+  (ref) => 0,
+);
