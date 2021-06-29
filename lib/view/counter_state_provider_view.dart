@@ -71,7 +71,12 @@ class CounterStateProviderView extends ConsumerWidget {
               heroTag: 'resetTag',
 
               /// [4-B]: Sıfırlama metodunu çalıştır
-              onPressed: () => _read.state = 0,
+              onPressed: () {
+                if (_read.state == 0) {
+                  return;
+                }
+                _read.state = 0;
+              },
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
