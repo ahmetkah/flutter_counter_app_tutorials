@@ -3,23 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/providers.dart';
 
-class CounterView extends ConsumerWidget {
-  const CounterView({Key? key}) : super(key: key);
+class CounterChangeView extends ConsumerWidget {
+  const CounterChangeView({Key? key}) : super(key: key);
+  static Route route() => MaterialPageRoute<void>(builder: (_) => CounterChangeView());
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    /// [Model sınıfı]: .. extends StateNotifier
+    /// [Model sınıfı]: ChangeNotifier'dan kalıtım alan
     /// [watch (provider)]: Model sınıfının durumunu izler
     /// ve değiştiğinde UI rebuild edilir /yeniden oluşturulur.
-    final _watch = watch(counterProvider);
+    final _watch = watch(counterChangeProvider);
 
     /// [context.read<Model>.method()]: model sınıfındaki metotlara erişmek için
-    final _read = context.read(counterProvider.notifier);
+    final _read = context.read(counterChangeProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'StateNotifierProvider | Counter App',
+          'ChangeNotifierProvider | Counter App',
         ),
       ),
       body: Center(
@@ -32,7 +33,7 @@ class CounterView extends ConsumerWidget {
             ),
             Text(
               /// Değişimi dinlenen değişkenin değerini ekrana yaz
-              '$_watch',
+              '${_watch.counter}',
               style: Theme.of(context).textTheme.headline3,
             ),
           ],
