@@ -1,20 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import '../stores/counter_store.dart';
+import '../utils/box_manager.dart';
+import '../utils/hive_manager.dart';
 
-class CounterView extends StatelessWidget {
+class CounterView extends StatefulWidget {
   const CounterView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    /// [1] Metotlara erişmek için
-    final _store = CounterStore();
+  _CounterViewState createState() => _CounterViewState();
+}
 
+class _CounterViewState extends State<CounterView> {
+  /// HiveManager'a erişmek için değişken.
+  late HiveManager _hiveManager;
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// HiveManager'dan nesne oluşturarak değişkene atadık.
+    _hiveManager = HiveManager();
+  }
+
+  @override
+  void dispose() {
+    /// İşi bitince kapat
+    _hiveManager.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'MobX | Counter App',
+          'Hive DB | Counter App',
         ),
       ),
       body: Center(
@@ -26,15 +48,26 @@ class CounterView extends StatelessWidget {
               style: Theme.of(context).textTheme.headline3,
             ),
 
-            /// CounterStore'da @observer notasyonu ile belirttiğimiz
-            /// değişkenin değeri değiştiğinde re-build olması için
-            /// Observer ile sarmaladık
-            Observer(
-              builder: (_) => Text(
-                /// Değişimi dinlenen değişkenin değerini ekrana yaz
-                '${_store.counter}',
-                style: Theme.of(context).textTheme.headline3,
-              ),
+            ///Kutuyu [DİNLE]
+            ValueListenableBuilder<Box<int>>(
+              /// [A] [valueListenable] parametresine
+              /// Açtığımız/Çağırdığımız kutuyu dinlemesini istedik.
+              valueListenable: _hiveManager.boxCounter.listenable(),
+              builder: (context, box, widget) {
+                /// Read Box - Kutudan [OKU/GETİR]
+                /// [B] Dinlediğimiz kutudaki değişkenin değerine eriştik.
+                /// [defaultValue] Varsayılan değeri 0 atadık.
+                /// Yani başlarken kutuda değer olmayacağı için 0 gelsin.
+                var readCounter = box.get(BoxManager.instance.keyNameCounter, defaultValue: 0);
+
+                /// 2. alternatif: Nesne üzerinden dinlenen değişkene erişme
+                /// var readCounter = _hiveManager.counter;
+                return Text(
+                  /// [C] Ekrana yazdıralım
+                  '$readCounter',
+                  style: Theme.of(context).textTheme.headline3,
+                );
+              },
             ),
           ],
         ),
@@ -54,7 +87,7 @@ class CounterView extends StatelessWidget {
               heroTag: 'incrementTag',
 
               /// [4-A]: Arttırma metodunu çalıştır
-              onPressed: _store.incrementCounter,
+              onPressed: _hiveManager.incrementCounter,
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -72,7 +105,8 @@ class CounterView extends StatelessWidget {
               heroTag: 'resetTag',
 
               /// [4-B]: Sıfırlama metodunu çalıştır
-              onPressed: _store.resetCounter,
+
+              onPressed: _hiveManager.resetCounter,
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -90,7 +124,8 @@ class CounterView extends StatelessWidget {
               heroTag: 'decrementTag',
 
               /// [4-C]: Azaltma metodunu çalıştır
-              onPressed: _store.decrementCounter,
+
+              onPressed: _hiveManager.decrementCounter,
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
