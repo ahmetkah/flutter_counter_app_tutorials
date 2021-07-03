@@ -11,10 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
-  # NoSQL Database
-  hive: ^2.0.4
-  # Extension for Hive
-  hive_flutter: ^1.1.0
+  # Firebase Core
+  firebase_core: ^1.3.0
+   # NoSQL cloud database
+  cloud_firestore: ^2.3.0
 
 dev_dependencies:
   flutter_test:

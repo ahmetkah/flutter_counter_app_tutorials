@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'app.dart';
-import 'utils/hive_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// [0] Initialize HiveManager - HiveManager'ı [BAŞLAT]
-  await HiveManager.init();
+  /// [0] Initialize Firebase - Firebase'i [BAŞLAT]
+  await Firebase.initializeApp();
 
   runApp(
     const App(),
