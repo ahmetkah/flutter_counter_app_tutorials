@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class FirestoreService {
   FirestoreService._();
@@ -25,7 +24,7 @@ class FirestoreService {
     /// CollectionReference
     final reference = firestoreInstance.collection(collectionPath);
     final data = <String, dynamic>{'value': value};
-    await reference.doc(documentPath).update(data).then((value) => debugPrint('Güncellendi'));
+    await reference.doc(documentPath).update(data);
   }
 
   /// Veriyi Dokümandan SİL
