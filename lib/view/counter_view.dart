@@ -72,7 +72,6 @@ class _CounterViewState extends State<CounterView> {
                       await _firestoreService.updateValue(
                         value: (counter++) + 1,
                       );
-                      debugPrint('Arttır metodu çalıştı');
                     },
                     tooltip: 'Arttır',
                     child: Icon(
@@ -96,7 +95,6 @@ class _CounterViewState extends State<CounterView> {
                       await _firestoreService.updateValue(
                         value: counter = 0,
                       );
-                      debugPrint('Sıfırlama metodu çalıştı');
                     },
                     tooltip: 'Sıfırla',
                     child: Icon(
@@ -120,7 +118,6 @@ class _CounterViewState extends State<CounterView> {
                       await _firestoreService.updateValue(
                         value: (counter--) - 1,
                       );
-                      debugPrint('Azaltma metodu çalıştı');
                     },
                     tooltip: 'Azalt',
                     child: Icon(

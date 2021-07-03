@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class FirestoreService {
   FirestoreService._();
@@ -17,14 +18,14 @@ class FirestoreService {
     await reference.doc(documentPath).set(data);
   }
 
-  /// Veriyi Dokümana YAZ
+  /// Veriyi GÜNCELLE
   Future<void> updateValue({
     required int value,
   }) async {
     /// CollectionReference
     final reference = firestoreInstance.collection(collectionPath);
     final data = <String, dynamic>{'value': value};
-    await reference.doc(documentPath).update(data);
+    await reference.doc(documentPath).update(data).then((value) => debugPrint('Güncellendi'));
   }
 
   /// Veriyi Dokümandan SİL
