@@ -16,8 +16,12 @@ dependencies:
   bloc: ^7.0.0
   # Flutter Bloc - State Management
   flutter_bloc: ^7.0.1
+  #
+  hydrated_bloc: ^7.0.1
   # Equality Comparisons
   equatable: ^2.0.2
+  #
+  path_provider: ^2.0.2
 
 dev_dependencies:
   flutter_test:
