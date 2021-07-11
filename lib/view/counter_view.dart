@@ -8,12 +8,16 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// [2]: [ViewModelBuilder]
+    /// [2]: CounterViewModel sınıfındaki notifyListeners() metodu çağrıldığında
+    /// [ViewModelBuilder]'ın builder parametresi tetiklenecek ve
+    /// bu widget rebuild edilecek (yeniden oluşturulacak)
+    /// yani state'i güncellenecektir.
+
     return ViewModelBuilder<CounterViewModel>.reactive(
       viewModelBuilder: () => CounterViewModel(),
 
-      /// [model]: CounterViewModel sınıfında yer alan
-      /// state değerine ve metotlara erişebileceğiz
+      /// [model] ile CounterViewModel sınıfında yer alan
+      /// değişken ve metotlara erişebileceğiz
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text(
