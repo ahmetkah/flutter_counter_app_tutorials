@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 /// Sınıfı [ChangeNotifier]'dan kalıtım al.
-class CounterNotifier extends ChangeNotifier {
+class CounterViewModel extends ChangeNotifier {
   /// Değişimini dinleyeceğimiz değişkeni oluştur.
   /// ve başlangıç değeri olarak 0 ata.
   int _counter = 0;
