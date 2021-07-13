@@ -12,14 +12,12 @@ class CounterView extends StatefulWidget {
 }
 
 class _CounterViewState extends State<CounterView> {
-  /// []
   late Counter counter;
 
   @override
   void initState() {
     super.initState();
 
-    /// []
     counter = Counter();
   }
 
