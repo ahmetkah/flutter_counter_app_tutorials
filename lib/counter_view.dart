@@ -1,32 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'counter.dart';
-
-class CounterView extends StatefulWidget {
-  const CounterView({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _CounterViewState createState() => _CounterViewState();
-}
-
-class _CounterViewState extends State<CounterView> {
-  late Counter counter;
-
-  @override
-  void initState() {
-    super.initState();
-
-    counter = Counter();
-  }
+class CounterView extends HookWidget {
+  final count = useState<int>(0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Default Counter App',
+          'Flutter Hooks Counter App',
         ),
       ),
       body: Center(
@@ -39,7 +22,7 @@ class _CounterViewState extends State<CounterView> {
             ),
             Text(
               /// [3]: Sayacın değerini ekrana yaz
-              '${counter.value}',
+              '${count.value}',
               style: Theme.of(context).textTheme.headline3,
             ),
           ],
@@ -59,12 +42,9 @@ class _CounterViewState extends State<CounterView> {
             child: FloatingActionButton(
               heroTag: 'incrementTag',
 
-              /// Arttırma metodunu [2-A] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.incrementCounter(),
-                );
-              },
+              /// Arttırma metodunu çalıştır
+              onPressed: _incrementCounter,
+
               tooltip: 'Arttır',
               child: Icon(
                 Icons.add,
@@ -81,12 +61,9 @@ class _CounterViewState extends State<CounterView> {
               backgroundColor: Colors.white,
               heroTag: 'resetTag',
 
-              /// Sıfırlama metodunu [2-B] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.resetCounter(),
-                );
-              },
+              /// Sıfırlama metodunu çalıştır
+              onPressed: _resetCounter,
+
               tooltip: 'Sıfırla',
               child: Icon(
                 Icons.exposure_zero_sharp,
@@ -103,12 +80,9 @@ class _CounterViewState extends State<CounterView> {
             child: FloatingActionButton(
               heroTag: 'decrementTag',
 
-              /// Azaltma metodunu [2-C] çalıştır
-              onPressed: () {
-                setState(
-                  () => counter.decrementCounter(),
-                );
-              },
+              /// Azaltma metodunu  çalıştır
+              onPressed: _decrementCounter,
+
               tooltip: 'Azalt',
               child: Icon(
                 Icons.remove,
@@ -118,5 +92,26 @@ class _CounterViewState extends State<CounterView> {
         ],
       ),
     );
+  }
+
+  void _incrementCounter() {
+    /// Value (Sayaç) değerini bir [ARTTIR]
+    count.value++;
+    debugPrint('Arttırma metodu');
+  }
+
+  void _resetCounter() {
+    /// Value zaten 0 ise [DEĞİŞİKLİK YAPMA]
+    if (count.value == 0) return;
+
+    /// Value değerine [0] ata
+    count.value = 0;
+    debugPrint('Sıfırla metodu');
+  }
+
+  void _decrementCounter() {
+    /// Value değerini bir [AZALT]
+    count.value--;
+    debugPrint('Azaltma metodu');
   }
 }

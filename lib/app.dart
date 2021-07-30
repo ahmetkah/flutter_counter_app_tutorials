@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'counter_view.dart';
 
-class App extends StatelessWidget {
+class App extends HookWidget {
   const App({Key? key}) : super(key: key);
 
   @override
@@ -11,7 +12,7 @@ class App extends StatelessWidget {
       title: 'Flutter Counter App Tutorials',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
-      home: const CounterView(),
+      home: CounterView(),
     );
   }
 }

@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.3
+  # Flutter Hooks
+  flutter_hooks: ^0.18.0
+
 
 dev_dependencies:
   flutter_test:
