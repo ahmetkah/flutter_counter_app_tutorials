@@ -29,7 +29,7 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   # Linter Google
-  pedantic: ^1.11.0
+  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true
