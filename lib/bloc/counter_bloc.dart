@@ -11,7 +11,7 @@ part 'counter_state.dart';
 class CounterBloc extends Bloc<CounterEvent, CounterState> with HydratedMixin {
   /// State için başlangıç değeri
   /// super(state) => state(0)
-  CounterBloc() : super(CounterState(counter: 0)) {
+  CounterBloc() : super(const CounterState(counter: 0)) {
     hydrate();
 
     /// state değerini 1 arttır
