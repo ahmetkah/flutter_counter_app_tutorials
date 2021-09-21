@@ -13,26 +13,34 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> with HydratedMixin {
   /// super(state) => state(0)
   CounterBloc() : super(CounterState(counter: 0)) {
     hydrate();
-  }
 
-  @override
-  Stream<CounterState> mapEventToState(CounterEvent event) async* {
-    if (event is IncrementEvent) {
-      /// state değerini 1 arttır
-      yield CounterState(counter: state.counter + 1);
-    } else if (event is ResetEvent) {
-      /// state değerini sıfırla
-      yield CounterState(counter: 0);
-    } else if (event is DecrementEvent) {
-      /// state değerini 1 azalt
-      yield CounterState(counter: state.counter - 1);
-    }
+    /// state değerini 1 arttır
+    on<IncrementEvent>(
+      (event, emit) => emit(
+        CounterState(counter: state.counter + 1),
+      ),
+    );
+
+    /// state değerini sıfırla
+    on<ResetEvent>(
+      (event, emit) => emit(
+        const CounterState(counter: 0),
+      ),
+    );
+
+    /// state değerini 1 azalt
+    on<DecrementEvent>(
+      (event, emit) => emit(
+        CounterState(counter: state.counter - 1),
+      ),
+    );
   }
 
   /// [Oku/Getir]
   /// Son [state]'i JSON'dan CounterState'e çevirir
   @override
-  CounterState? fromJson(Map<String, dynamic> json) => CounterState(counter: json['value'] as int);
+  CounterState? fromJson(Map<String, dynamic> json) =>
+      CounterState(counter: json['value'] as int);
 
   /// [Yaz/Kaydet]
   /// Güncellenen [state]'i JSON'a çevirir.
