@@ -17,7 +17,7 @@ class CounterView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Flutter BLoC Counter App',
         ),
       ),
@@ -52,7 +52,7 @@ class CounterView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               bottom: 10,
             ),
 
@@ -63,13 +63,13 @@ class CounterView extends StatelessWidget {
               /// [3-D]: Arttırma Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(IncrementEvent()),
               tooltip: 'Arttır',
-              child: Icon(
+              child: const Icon(
                 Icons.add,
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               bottom: 10,
             ),
 
@@ -81,7 +81,7 @@ class CounterView extends StatelessWidget {
               /// [3-E] Sıfırlama Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(ResetEvent()),
               tooltip: 'Sıfırla',
-              child: Icon(
+              child: const Icon(
                 Icons.exposure_zero_sharp,
                 color: Colors.blue,
               ),
@@ -90,7 +90,7 @@ class CounterView extends StatelessWidget {
 
           /// Azalt FAB Düğmesi
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               bottom: 10,
             ),
             child: FloatingActionButton(
@@ -99,7 +99,7 @@ class CounterView extends StatelessWidget {
               /// [3-F] Azaltma Event'ini CounterBloc'a gönder
               onPressed: () => _read.add(DecrementEvent()),
               tooltip: 'Azalt',
-              child: Icon(
+              child: const Icon(
                 Icons.remove,
               ),
             ),
