@@ -10,7 +10,7 @@ part 'counter_state.dart';
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
   /// State için başlangıç değeri
   /// super(state) => state(0)
-  CounterBloc() : super(CounterState(counter: 0)) {
+  CounterBloc() : super(const CounterState(counter: 0)) {
     /// state değerini 1 arttır
     on<IncrementEvent>(
       (event, emit) => emit(
@@ -21,7 +21,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     /// state değerini sıfırla
     on<ResetEvent>(
       (event, emit) => emit(
-        CounterState(counter: 0),
+        const CounterState(counter: 0),
       ),
     );
 

@@ -19,7 +19,7 @@ class CounterPage extends StatelessWidget {
 
       /// [2-C]: [CounterView]’ın altındaki tüm widgetlerden enjekte ettiğimiz
       /// [CounterBloc] nesnesine ulaşabileceğiz.
-      child: CounterView(),
+      child: const CounterView(),
     );
   }
 }
