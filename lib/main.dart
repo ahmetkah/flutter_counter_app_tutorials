@@ -12,7 +12,10 @@ Future<void> main() async {
 
   /// Initialize CounterBlocObserver
   /// CounterObserver'ı Başlatma
-  Bloc.observer = CounterObserver();
+  BlocOverrides.runZoned(
+    () {},
+    blocObserver: CounterObserver(),
+  );
 
   /// Initialize HydratedStorage
   /// HydratedStorage'ı Başlatma
