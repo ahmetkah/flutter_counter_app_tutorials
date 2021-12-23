@@ -8,7 +8,10 @@ import 'counter_observer.dart';
 Future<void> main() async {
   /// Initialize CounterBlocObserver
   /// CounterObserver'ı Başlatma
-  Bloc.observer = CounterObserver();
+  BlocOverrides.runZoned(
+    () {},
+    blocObserver: CounterObserver(),
+  );
   runApp(
     const App(),
   );
