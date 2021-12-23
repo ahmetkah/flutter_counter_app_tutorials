@@ -17,12 +17,16 @@ Future<void> main() async {
     blocObserver: CounterObserver(),
   );
 
-  /// Initialize HydratedStorage
-  /// HydratedStorage'ı Başlatma
-  HydratedBloc.storage = await HydratedStorage.build(
+  final storage = await HydratedStorage.build(
     storageDirectory: await getTemporaryDirectory(),
   );
-  runApp(
-    const App(),
+
+  /// Initialize HydratedStorage
+  /// HydratedStorage'ı Başlatma
+  HydratedBlocOverrides.runZoned(
+    () => runApp(
+      const App(),
+    ),
+    storage: storage,
   );
 }
