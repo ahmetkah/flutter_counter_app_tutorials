@@ -13,15 +13,15 @@ dependencies:
   cupertino_icons: ^1.0.3
   
   # Bloc - State Management
-  bloc: ^7.2.0
+  bloc: ^8.0.1
   # Flutter Bloc - State Management
-  flutter_bloc: ^7.3.0
+  flutter_bloc: ^8.0.0
   #
-  hydrated_bloc: ^7.1.0
+  hydrated_bloc: ^8.0.0
   # Equality Comparisons
   equatable: ^2.0.3
   #
-  path_provider: ^2.0.5
+  path_provider: ^2.0.8
 
 dev_dependencies:
   flutter_test:
